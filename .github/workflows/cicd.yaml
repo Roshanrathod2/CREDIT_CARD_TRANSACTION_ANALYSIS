@@ -21,7 +21,7 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r utils/requirements.txt
-          pip install pytest pytest-cov
+          pip install -U pytest pytest-cov pyspark
 
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=$PWD" >> $GITHUB_ENV
