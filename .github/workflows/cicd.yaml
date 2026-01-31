@@ -40,32 +40,28 @@ jobs:
 
     steps:
       - name: Checkout Code
-        run: echo "deploy......"
+        uses: actions/checkout@v3
 
-  #   steps:
-  #     - name: Checkout Code
-  #       uses: actions/checkout@v3
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-  #     - name: Authenticate to GCP
-  #       uses: google-github-actions/auth@v1
-  #       with:
-  #         credentials_json: ${{ secrets.GCP_SA_KEY }}
+      - name: Setup Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-  #     - name: Setup Google Cloud SDK
-  #       uses: google-github-actions/setup-gcloud@v1
-  #       with:
-  #         project_id: ${{ secrets.GCP_PROJECT_ID }}
-
-  #     # Upload PySpark Job to GCS
-  #     - name: Upload Spark Job to GCS
-  #       run: |
-  #         gsutil cp data/spark_job.py gs://avd-bucket-credit-card-analysis/spark_job/
-  #         gsutil cp data/load_users_to_bq.py gs://avd-bucket-credit-card-analysis/spark_job/
+      # Upload PySpark Job to GCS
+      - name: Upload Spark Job to GCS
+        run: |
+          gsutil cp data/spark_job.py gs://avd-bucket-credit-card-analysis/spark_job/
+          gsutil cp data/load_users_to_bq.py gs://avd-bucket-credit-card-analysis/spark_job/
           
-  #     # Upload Airflow DAG to Composer
-  #     - name: Upload Airflow DAG to Composer
-  #       run: |
-  #         gcloud composer environments storage dags import \
-  #           --environment airflow-avd-credit-card-env \
-  #           --location us-central1 \
-  #           --source airflow/airflow_job.py
+      # Upload Airflow DAG to Composer
+      - name: Upload Airflow DAG to Composer
+        run: |
+          gcloud composer environments storage dags import \
+            --environment airflow-avd-credit-card-env \
+            --location us-central1 \
+            --source airflow/airflow_job.py
