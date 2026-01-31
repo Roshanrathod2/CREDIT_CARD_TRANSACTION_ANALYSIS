@@ -82,7 +82,7 @@ with DAG(
     )
 
     #Archive processed files
-    move_files_to_archive=GCSTOGCSOperator(
+    move_files_to_archive=GCSToGCSOperator(
         task_id="move_file_to_archive",
         source_bucket=gcs_bucket,
         source_object=source_suffix,
