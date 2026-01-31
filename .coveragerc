@@ -3,6 +3,6 @@ omit=
     data/load_users_to_bq.py
 
 [report]
-exclude_lines=
+exclude_lines =
     pragma: no cover
-    if __name__== .__main__.:
+    if __name__ == .__main__.:
