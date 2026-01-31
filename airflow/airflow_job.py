@@ -1,21 +1,22 @@
-from airflow import DAG
-from datetime import datetime,timedelta
+from datetime import timedelta
+import uuid
 from airflow.utils.dates import days_ago
-from airflow.provider.google.cloud.operators.dataproc import DataprocCreateBatchOperator
-from airflow.provider.google.cloud.transfers.gcs_to_gcs import GCSTOGCSOperator
+from airflow import DAG
+from airflow.providers.google.cloud.operators.dataproc import DataprocCreateBatchOperator
+from airflow.providers.google.cloud.transfers.gcs_to_gcs import GCSToGCSOperator
 from airflow.utils.trigger_rule import TriggerRule
 
-default_args={
-    'owner':'airflow',
-    "start_date":days_ago(1),
-    'depend_on_past':False,
-    'retries':1,
-    'retry_delay':timedelta(minutes=5)
+# DAG default arguments
+default_args = {
+    "owner": "airflow",
+    "start_date": days_ago(1),
+    "depends_on_past": False,
+    "retries": 1,
+    "retry_delay": timedelta(minutes=5)
 }
 
 with DAG(
-    dag_id='dag_id1',
-    description="credit card transaction analysis",
+    dag_id="credit_card_transactions_dataproc_dag2",
     default_args=default_args,
     schedule_interval="0 5 * * *",
 ) as dag:
