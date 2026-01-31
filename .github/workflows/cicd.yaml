@@ -64,4 +64,4 @@ jobs:
           gcloud composer environments storage dags import \
             --environment airflow-avd-credit-card-env \
             --location us-central1 \
-            --source airflow/
+            --source airflow/airflow_job.py
