@@ -94,5 +94,6 @@ with DAG(
     )
 
     # DAG FLOW
+    load_user_task >> process_txns_task >> move_files_to_archive
     # load_user_task >> process_tranx_task >> move_file_to_archive
-    process_txns_task >> move_files_to_archive
+    # process_txns_task >> move_files_to_archive
